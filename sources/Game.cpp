@@ -4,6 +4,7 @@
 #include "game.hpp"
 
 Game::Game(Player player1, Player player2){
+    if(player1.stacksize)
     this->player1 = player1;
     this->player2 = player2;
 }
