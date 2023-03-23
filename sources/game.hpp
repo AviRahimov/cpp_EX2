@@ -8,9 +8,8 @@
 
 namespace ariel{}
     class Game{
-    private:
-        Player player1, player2;
     public:
+        Player player1, player2;
         Game(Player player1, Player player2);
         Game();
         void playTurn();
@@ -19,9 +18,5 @@ namespace ariel{}
         void printWiner();
         void printLog();
         void printStats();
-        Player getPlayer1();
-        Player getPlayer2();
-        void setPlayer1(Player newPlayer1);
-        void setPlayer2(Player newPlayer2);
     };
 #endif //CPP_EX2_GAME_HPP

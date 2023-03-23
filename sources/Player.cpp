@@ -17,10 +17,10 @@ int Player::stacksize(){
 int Player::cardesTaken(){
     return 0;
 }
-string Player::getStr(){
-    return this->str;
+string Player::getName(){
+    return this->name;
 }
-void Player::setStr(string new_str){
+void Player::setName(string new_name){
 
 }
 int Player::getCardsLeft(){
@@ -39,5 +39,5 @@ bool Player::IsPlaying(){
     return this->is_playing;
 }
 void Player::setIsPlaying(bool new_playing_status){
-
+    this->is_playing = new_playing_status;
 }

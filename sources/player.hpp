@@ -11,16 +11,16 @@ namespace ariel{}
 
     class Player{
     private:
-        string str;
+        string name;
         int cards_left, won_cards;
         bool is_playing;
     public:
         Player();
-        Player(string str);
+        Player(string name);
         int stacksize();
         int cardesTaken();
-        string getStr();
-        void setStr(string new_str);
+        string getName();
+        void setName(string new_str);
         int getCardsLeft();
         void setCardsLeft(int new_cards_left);
         int getWonCards();
