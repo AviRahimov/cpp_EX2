@@ -6,8 +6,10 @@
 #define CPP_EX2_CARD_HPP
 
 namespace ariel{}
-    class Card{      
+    class Card{
+    private:
+        int num_of_cards;
     public:     
-        Card();
+        Card(int num_of_cards);
     };
 #endif //CPP_EX2_CARD_HPP

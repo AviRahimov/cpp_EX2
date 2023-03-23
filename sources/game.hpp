@@ -11,8 +11,8 @@ namespace ariel{}
     private:
         Player player1, player2;
     public:
-        Game();
         Game(Player player1, Player player2);
+        Game();
         void playTurn();
         void printLastTurn();
         void playAll ();

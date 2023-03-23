@@ -1,5 +1,5 @@
 #include "card.hpp"
 
-Card::Card(){
+Card::Card(int num_of_cards){
 
 }
