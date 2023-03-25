@@ -4,6 +4,7 @@
 #include "sources/card.hpp"
 #include <string.h>
 #include <stdexcept>
+#include <iostream>
 using namespace ariel;
 using namespace std;
 
@@ -14,7 +15,7 @@ TEST_CASE("Checking if players initialized correctly"){
 TEST_CASE("Checking Game class constructor"){
     Player p1("player1");
     Player p2("player2");
-    CHECK_NOTHROW(Game game(p1, p2));
+    CHECK_NOTHROW(Game{p1, p2});
 }
 
 TEST_CASE("Checking if game stats correct for all players"){
@@ -33,7 +34,7 @@ TEST_CASE("Checking if game stats correct for all players"){
 
 TEST_CASE("Checking Player get fucntion"){
     Player p1("player1");
-    CHECK(strcmp(p1.getName(), "player1") == 0);
+    CHECK(p1.getName().compare("player1") == 0);
 }
 
 TEST_CASE("Checking if exception thrown if game not finished"){
@@ -41,7 +42,8 @@ TEST_CASE("Checking if exception thrown if game not finished"){
     Player p2("player2");
     Game game(p1, p2);
     CHECK_NOTHROW(game.playTurn());
-    CHECK_THROWS_AS(game, invalid_argument);
+    Player p3("player3");
+    CHECK_THROWS_AS((Game{p1, p3}), invalid_argument);
 }
 
 TEST_CASE("Checking if there is a winner"){
@@ -49,7 +51,7 @@ TEST_CASE("Checking if there is a winner"){
     Player p2("player2");
     Game game(p1, p2);
     CHECK_NOTHROW(game.playAll());
-    CHECK((p1.cardesTaken > 26 || p2.cardesTaken > 26));
+    CHECK((p1.cardesTaken() > 26 || p2.cardesTaken() > 26));
     CHECK(p1.stacksize() == 0);
     CHECK(p2.stacksize() == 0);
 }
@@ -73,3 +75,13 @@ TEST_CASE("Checking if other fucntions in game working"){
     CHECK_NOTHROW(game.printWiner());
     CHECK_NOTHROW(game.printStats());
 }
+//TEST_CASE("check"){
+  //  Player p1("p1");
+  //  Player p2("p2");
+  //  Game game(p1, p2);
+   // for (int i = 0; i < 20; i++)
+   // {
+   //     CHECK(p1.stacksize() == 26);
+   // }
+  //  
+//}
