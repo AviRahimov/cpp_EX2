@@ -51,7 +51,7 @@ TEST_CASE("Checking if there is a winner"){
     Player p2("player2");
     Game game(p1, p2);
     CHECK_NOTHROW(game.playAll());
-    CHECK((p1.cardesTaken() > 26 || p2.cardesTaken() > 26));
+    CHECK((p1.cardesTaken() > p2.cardesTaken() || p2.cardesTaken() > p1.cardesTaken()));
     CHECK(p1.stacksize() == 0);
     CHECK(p2.stacksize() == 0);
 }
@@ -75,13 +75,18 @@ TEST_CASE("Checking if other fucntions in game working"){
     CHECK_NOTHROW(game.printWiner());
     CHECK_NOTHROW(game.printStats());
 }
-//TEST_CASE("check"){
-  //  Player p1("p1");
-  //  Player p2("p2");
-  //  Game game(p1, p2);
-   // for (int i = 0; i < 20; i++)
-   // {
-   //     CHECK(p1.stacksize() == 26);
-   // }
-  //  
-//}
+
+TEST_CASE("Checking if some player get rank greater than 26"){
+    Player p1("player1");
+    Player p2("player2");
+    Game game(p1, p2);
+    game.playAll();
+    CHECK((p1.cardesTaken() <= 26 || p2.cardesTaken() <= 26));
+}
+
+TEST_CASE("Checking if exception thrown when trying to print the last turn before game started"){
+    Player p1("player1");
+    Player p2("player2");
+    Game game(p1, p2);
+    CHECK_THROWS(game.printLastTurn());
+}

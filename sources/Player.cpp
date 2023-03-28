@@ -4,6 +4,7 @@
 //using namespace std;
 #include "player.hpp"
 #include <string>
+using namespace ariel;
 
 Player::Player(){
 

@@ -6,11 +6,11 @@
 #define CPP_EX2_GAME_HPP
 #include "player.hpp"
 
-namespace ariel{}
+namespace ariel{
     class Game{
     public:
         Player player1, player2;
-        Game(Player player1, Player player2);
+        Game(Player& player1, Player& player2);
         Game();
         void playTurn();
         void printLastTurn();
@@ -19,4 +19,5 @@ namespace ariel{}
         void printLog();
         void printStats();
     };
+}
 #endif //CPP_EX2_GAME_HPP

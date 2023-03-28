@@ -7,8 +7,8 @@
 
 #include <string>
 using namespace std;
-namespace ariel{}
 
+namespace ariel{
     class Player{
     private:
         string name;
@@ -28,4 +28,5 @@ namespace ariel{}
         bool IsPlaying();
         void setIsPlaying(bool new_playing_status);
     };
+}
 #endif //CPP_EX2_PLAYER_HPP

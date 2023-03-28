@@ -5,8 +5,10 @@
 #include <stdexcept>
 #include <string>
 using namespace std;
+using namespace ariel;
 
-Game::Game(Player player1, Player player2){
+Game::Game(Player& player1, Player& player2){
+// : player1(player1), player2(player2){
     if(player1.stacksize()>0 || player2.stacksize()>0){
         throw invalid_argument("Current players are playing the game, you can't create a new game with them");
     }
