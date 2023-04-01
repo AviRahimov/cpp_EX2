@@ -33,9 +33,13 @@ void Player::setCardsLeft(int new_cards_left){
 int Player::getWonCards(){
     return 0;
 }
-void Player::setWonCards( int new_won_cards){
-
+void Player::addWonCards( int add_won_cards){
+    this->cardesTaken+=add_won_cards;
 }
+vector<Card> Player::getDeckOfCards(){
+    return this->cards;
+}
+
 bool Player::IsPlaying(){
     return this->is_playing;
 }

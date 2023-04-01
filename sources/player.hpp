@@ -6,6 +6,8 @@
 #define CPP_EX2_PLAYER_HPP
 
 #include <string>
+#include <vector>
+#include "card.hpp"
 using namespace std;
 
 namespace ariel{
@@ -14,6 +16,7 @@ namespace ariel{
         string name;
         int cards_left, won_cards;
         bool is_playing;
+        vector<Card> cards;
     public:
         Player();
         Player(string name);
@@ -24,7 +27,8 @@ namespace ariel{
         int getCardsLeft();
         void setCardsLeft(int new_cards_left);
         int getWonCards();
-        void setWonCards( int new_won_cards);
+        void addWonCards( int add_won_cards);
+        vector<card> getDeckOfCards(){};
         bool IsPlaying();
         void setIsPlaying(bool new_playing_status);
     };
