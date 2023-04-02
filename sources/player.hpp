@@ -9,8 +9,8 @@
 #include <vector>
 #include "card.hpp"
 using namespace std;
+namespace ariel{}
 
-namespace ariel{
     class Player{
     private:
         string name;
@@ -28,9 +28,9 @@ namespace ariel{
         void setCardsLeft(int new_cards_left);
         int getWonCards();
         void addWonCards( int add_won_cards);
-        vector<card> getDeckOfCards(){};
+        vector<Card> getDeckOfCards();
+        void setDeckOfCards(int number);
         bool IsPlaying();
         void setIsPlaying(bool new_playing_status);
     };
-}
 #endif //CPP_EX2_PLAYER_HPP

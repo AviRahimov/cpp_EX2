@@ -7,11 +7,14 @@
 #include "player.hpp"
 #include <vector>
 #include <string>
+using namespace std;
+namespace ariel{}
 
-namespace ariel{
     class Game{
+    private:
+        Player* player1;
+        Player* player2;
     public:
-        Player player1, player2;
         vector<string> TurnStats;
         int DrawCount;
         static int countCardsAddition;
@@ -23,5 +26,4 @@ namespace ariel{
         void printLog();
         void printStats();
     };
-}
 #endif //CPP_EX2_GAME_HPP
