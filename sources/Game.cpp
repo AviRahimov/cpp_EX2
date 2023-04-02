@@ -5,16 +5,13 @@
 #include <stdexcept>
 #include <string>
 #include <iostream>
+#include <stdexcept>
 using namespace std;
 using namespace ariel;
-<<<<<<< HEAD
-
-=======
 #define SIZE_OF_CARDS 52
 
 int Game::countCardsAddition = 0;
 
->>>>>>> b0674f7 (almost finish game file, playAll func remained)
 Game::Game(Player& player1, Player& player2){
 // : player1(player1), player2(player2){
     if(player1.stacksize()>0 || player2.stacksize()>0){
@@ -28,11 +25,18 @@ Game::Game(Player& player1, Player& player2){
 }
 
 void Game::playTurn(){
+    if((player1.stacksize()>0 && player2.stacksize()>0))
+    {
     Card player1Card = player1.getDeckOfCards().pop_back(); // get one card from player1's deck of cards
     Card player2Card = player2.getDeckOfCards().pop_back(); // get one card from player2's deck of cards
     countCardsAddition+=2; // static integer because it's a recursive function so, I want to chnge thos variable every time calling the function
-    if(player1Card.getNumber() > player2Card.getNumber()) // The case that player1 won in one turn
+    if((player1Card.getNumber() > player2Card.getNumber()) || (player1Card.getNumber()==1 && player2Card.getNumber()>2)) // The case that player1 won in one turn
     {
+        if (player1Card.getNumber()>2 && player2Card.getNumber()==1) // The game rules said that 1 win all numbers between 3-13 but 2 win 1
+        {
+            break;
+        }
+        
         player1.addWonCards(countCardsAddition); // adding the number of cards player1 won to his won_cards variable
         player1.setCardsLeft(player1.getCardsLeft()-1); // after one turn, we need to decrease the number of stack of cards by 1.
         player2.setCardsLeft(player2.getCardsLeft()-1);
@@ -42,7 +46,7 @@ void Game::playTurn(){
                             player1.getName() + "wins";
         this->TurnStats.insert(turn_stats);
     }
-    else if (player2Card.getNumber() > player1Card.getNumber())// The case that player2 won in one turn
+    else if ((player2Card.getNumber() > player1Card.getNumber()) || (player2Card.getNumber()==1 && player1Card.getNumber()>2))// The case that player2 won in one turn
     {
         player2.addWonCards(countCardsAddition); // adding the number of cards player2 won to his won_cards variable
         player1.setCardsLeft(player1.getCardsLeft()-1);
@@ -61,21 +65,27 @@ void Game::playTurn(){
                             player2.getName() + "played" + player2Card.getNumber() + "of" + player2Card.getType() + 
                             "draw";
         this->TurnStats.insert(turn_stats);
-        Card upside-down1 = player1.getDeckOfCards().pop_back();
-        Card upside-down2 = player2.getDeckOfCards().pop_back();
+        Card upside_down1 = player1.getDeckOfCards().pop_back();
+        Card upside_down2 = player2.getDeckOfCards().pop_back();
         player1.setCardsLeft(player1.getCardsLeft()-1);
         player2.setCardsLeft(player2.getCardsLeft()-1);
         this->playTurn(); // call recursively to the current function until there is a won in some turn or there is only draw so the game will stop after all draws(next statement)
     }
-    else
+    else // should check if this statement occur only if there is only draw
     {
         player1.addWonCards(SIZE_OF_CARDS/2); // splitting the points between both players equally
         player2.addWonCards(SIZE_OF_CARDS/2);
         player1.setIsPlaying(false); // the game finished so the players stopped playing
         player2.setIsPlaying(false);
     }
-    
-        
+    }
+    else
+    {
+        player1.setIsPlaying(false); // the game finished so the players stopped playing
+        player2.setIsPlaying(false);
+        throw runtime_error("You are trying to play with 0 cards");
+    }
+       
 }
 
 void Game::printLastTurn(){
