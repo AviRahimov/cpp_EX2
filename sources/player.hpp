@@ -19,7 +19,6 @@ namespace ariel{}
         bool is_playing;
         vector<Card> cards;
     public:
-        Player();
         Player(string name);
         int stacksize();
         int cardesTaken();

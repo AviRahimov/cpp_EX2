@@ -123,11 +123,11 @@ void Game::playAll(){
 void Game::printWiner(){
     if (player1.cardesTaken() > player2.cardesTaken())
     {
-        cout << "The winner is " + player1->getName() << endl;
+        cout << "The winner is " + player1.getName() << endl;
     }
     else if (player2.cardesTaken() > player1.cardesTaken())
     {
-        cout << "The winner is " + player2->getName() << endl;
+        cout << "The winner is " + player2.getName() << endl;
     }
     else
     {

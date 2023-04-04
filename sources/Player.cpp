@@ -7,12 +7,6 @@
     #include <stdexcept>
     using namespace ariel;
 
-    Player::Player(){
-    Player::Player(){
-
-    }
-    }
-
     Player::Player(string name){
         this->name = name;
         this->cards_left = 0;
