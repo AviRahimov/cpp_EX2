@@ -7,6 +7,8 @@
 #include <string>
 using namespace std;
 namespace ariel{}
+using namespace std;
+namespace ariel{}
 
     class Card{
     private:
@@ -14,9 +16,9 @@ namespace ariel{}
         string type; // The card type like Hearts or Spades etc.
         //string types_of_cards[4]; 
     public:     
-        Card();
-      //  ~Card();
+        Card(int num, string type_of_card);
         int getNumber();
         string getType();
+        bool operator==(const Card& other) const;
     };
 #endif //CPP_EX2_CARD_HPP

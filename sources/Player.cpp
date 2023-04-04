@@ -4,10 +4,13 @@
     //using namespace std;
     #include "player.hpp"
     #include <string>
+    #include <stdexcept>
     using namespace ariel;
 
     Player::Player(){
+    Player::Player(){
 
+    }
     }
 
     Player::Player(string name){
@@ -30,16 +33,8 @@
         this->name = new_name;
     }
 
-    int Player::getCardsLeft(){
-        return this->cards_left;
-    }
-
     void Player::setCardsLeft(int new_cards_left){
         this->cards_left = new_cards_left;
-    }
-
-    int Player::getWonCards(){
-        return this->won_cards;
     }
 
     void Player::addWonCards( int add_won_cards){
@@ -50,12 +45,8 @@
         return this->cards;
     }
 
-    void Player::setDeckOfCards(int num_of_cards){
-        for (int i = 0; i < num_of_cards; i++)
-        {
-            Card *card = new Card(); // create card object
-            this->cards.push_back(*card);
-        }
+    void Player::setCardInDeckOfCards(Card card){
+        this->cards.push_back(card);
     }
 
     bool Player::IsPlaying(){
@@ -64,4 +55,14 @@
 
     void Player::setIsPlaying(bool new_playing_status){
         this->is_playing = new_playing_status;
+    }
+    void Player::RemoveCardFromDeck(){
+        if (this->cards.size() == 0)
+        {
+            throw invalid_argument("You are trying to remove from deck with no cards");
+        }
+        else
+        {
+            this->cards.pop_back();   
+        }
     }

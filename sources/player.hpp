@@ -10,6 +10,7 @@
 #include "card.hpp"
 using namespace std;
 namespace ariel{}
+namespace ariel{}
 
     class Player{
     private:
@@ -24,13 +25,12 @@ namespace ariel{}
         int cardesTaken();
         string getName();
         void setName(string new_str);
-        int getCardsLeft();
         void setCardsLeft(int new_cards_left);
-        int getWonCards();
         void addWonCards( int add_won_cards);
         vector<Card> getDeckOfCards();
-        void setDeckOfCards(int number);
+        void setCardInDeckOfCards(Card card);
         bool IsPlaying();
         void setIsPlaying(bool new_playing_status);
+        void RemoveCardFromDeck();
     };
 #endif //CPP_EX2_PLAYER_HPP
