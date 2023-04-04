@@ -4,20 +4,13 @@
 
 #ifndef CPP_EX2_CARD_HPP
 #define CPP_EX2_CARD_HPP
-#include <string>
-using namespace std;
-namespace ariel{}
-using namespace std;
-namespace ariel{}
 
+namespace ariel{
     class Card{
     private:
-        int number; // A number between 1-13
-        string type; // The card type like Hearts or Spades etc.
-    public:     
-        Card(int num, string type_of_card);
-        int getNumber();
-        string getType();
-        bool operator==(const Card& other) const;
+        int num_of_cards;
+    public:
+        Card(int num_of_cards);
     };
+}
 #endif //CPP_EX2_CARD_HPP
