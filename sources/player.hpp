@@ -32,4 +32,5 @@ namespace ariel{}
         void setIsPlaying(bool new_playing_status);
         void RemoveCardFromDeck();
     };
+
 #endif //CPP_EX2_PLAYER_HPP

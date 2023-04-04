@@ -14,7 +14,6 @@ namespace ariel{}
     private:
         int number; // A number between 1-13
         string type; // The card type like Hearts or Spades etc.
-        //string types_of_cards[4]; 
     public:     
         Card(int num, string type_of_card);
         int getNumber();

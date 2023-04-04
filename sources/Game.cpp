@@ -9,6 +9,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <cmath>
+
 using namespace std;
 using namespace ariel;
 #define SIZE_OF_CARDS 52

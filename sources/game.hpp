@@ -1,7 +1,6 @@
 //
 // Created by avi on 20/03/2023.
 //
-
 #ifndef CPP_EX2_GAME_HPP
 #define CPP_EX2_GAME_HPP
 #include "player.hpp"
