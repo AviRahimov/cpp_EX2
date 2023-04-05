@@ -87,10 +87,19 @@ void Game::playTurn(){
 
         else // should check if this statement occur only if there is only draw
         {
-            player1.addWonCards((getCountCardsAddition()+2)/2); // splitting the points between both players equally
-            player2.addWonCards((getCountCardsAddition()+2)/2);
-            player1.setCardsLeft(player1.stacksize()-1);
-            player2.setCardsLeft(player2.stacksize()-1);
+            if(player1.stacksize() == 1)
+            {
+                player1.setCardsLeft(player1.stacksize()-1);
+                player2.setCardsLeft(player2.stacksize()-1);
+                player1.addWonCards((getCountCardsAddition()+2)/2); // splitting the points between both players equally
+                player2.addWonCards((getCountCardsAddition()+2)/2);
+            }
+            else if (player1.stacksize() == 0 && getCountCardsAddition() == 2)
+            {
+                player1.addWonCards((getCountCardsAddition())/2);
+                player2.addWonCards((getCountCardsAddition())/2);
+            }
+            
             player1.setIsPlaying(false); // the game finished so the players stopped playing
             player2.setIsPlaying(false);
             return;
@@ -106,16 +115,12 @@ void Game::playTurn(){
 
 void Game::printLastTurn(){
     cout << TurnStats.back() << endl;
-    cout << TurnStats.back() << endl;
 }
 
 void Game::playAll(){
     while (player1.stacksize()>0  && (player1.IsPlaying() == true && player2.IsPlaying() == true))
     {
         playTurn();
-        printLastTurn();
-        cout << "Stack size for player1: " << player1.stacksize() << endl;
-        cout << "Stack size for player1: " << player1.stacksize() << endl;
     }
     player1.setIsPlaying(false);
     player2.setIsPlaying(false);
