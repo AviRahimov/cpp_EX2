@@ -137,8 +137,7 @@ void Game::printWiner(){
     }
     else
     {
-        throw runtime_error("There is no winner, draw");
-        throw runtime_error("There is no winner, draw");
+        cout << "There is no winner, draw" << endl;
     }
 }
 void Game::printLog(){
