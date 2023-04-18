@@ -11,7 +11,8 @@ namespace ariel{}
 
     class Game{
     private:
-        Player & player1, player2;
+        Player & player1;
+        Player & player2;
         vector<string> TurnStats;
         int DrawCount;
         int countCardsAddition = 0;
