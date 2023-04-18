@@ -16,7 +16,7 @@ using namespace ariel;
 string NUMBERS[] = {"Ace","2","3","4","5","6","7","8","9","10","Jack","Queen","King"};
 
 Game::Game(Player& p1, Player& p2): player1(p1), player2(p2){
-    // checking if the stack sixe of each player greater than 0, otherwise they cannot play
+    // checking if the stack size of each player greater than 0, otherwise they cannot play
     if(p1.stacksize()>0 || p2.stacksize()>0){
         throw invalid_argument("Current players are playing the game, you can't create a new game with them");
     }
@@ -37,43 +37,45 @@ Game::Game(Player& p1, Player& p2): player1(p1), player2(p2){
 }
 
 void Game::playTurn(){
-    if(player1.stacksize() > 0 && player2.stacksize() > 0 && player1.IsPlaying() == true && player2.IsPlaying() == true)
+    if(player1.stacksize() > 0 && player1.IsPlaying() && player2.IsPlaying())
     {
         Card player1Card = player1.getDeckOfCards().back(); // get one card from player1's deck of cards
         Card player2Card = player2.getDeckOfCards().back(); // get one card from player2's deck of cards
-        player1.RemoveCardFromDeck();
+        player1.RemoveCardFromDeck(); // removing the card taken from the deck
         player2.RemoveCardFromDeck();
         player1.setCardsLeft(player1.stacksize()-1); // after one turn, we need to decrease the number of stack of cards by 1.
         player2.setCardsLeft(player2.stacksize()-1);
-        setCountCardsAddition(getCountCardsAddition()+2); // static integer because it's a recursive function so, I want to chnge thos variable every time calling the function
-        if((player1Card.getNumber() == 1 && player2Card.getNumber() >2) || (player1Card.getNumber() == 2 && player2Card.getNumber() == 1) || (player1Card.getNumber() > 2 && player2Card.getNumber()<player1Card.getNumber() && player2Card.getNumber()!=1)) // The case that player1 won in one turn, The game rules said that 1 win all numbers between 3-13 but 2 win 1
-        { 
+        setCountCardsAddition(getCountCardsAddition()+2); // because it's a recursive function so, I want to change this variable every time calling the function
+
+        // The case that player1 won in one turn, The game rules said that 1 win all numbers between 3-13 but 2 win 1
+        if((player1Card.getNumber() == 1 && player2Card.getNumber() >2) || (player1Card.getNumber() == 2 && player2Card.getNumber() == 1) || (player1Card.getNumber() > 2 && player2Card.getNumber()<player1Card.getNumber() && player2Card.getNumber()!=1))
+        {
             player1.addWonCards(getCountCardsAddition()); // adding the number of cards player1 won to his won_cards variable
             setCountCardsAddition(0); // setting this variable to 0 because now the table is empty from cards i.e. player1 won the cards
-            string turn_stats = player1.getName() + " played " + NUMBERS[player1Card.getNumber()-1] + " of " + player1Card.getType() + " " + 
-                                player2.getName() + " played " + NUMBERS[player2Card.getNumber()-1] + " of " + player2Card.getType() + " " + 
+            string turn_stats = player1.getName() + " played " + NUMBERS[player1Card.getNumber()-1] + " of " + player1Card.getType() + " " +
+                                player2.getName() + " played " + NUMBERS[player2Card.getNumber()-1] + " of " + player2Card.getType() + " " +
                                 player1.getName() + " wins";
             this->TurnStats.push_back(turn_stats);
             return;
         }
-
-        else if ((player2Card.getNumber() == 1 && player1Card.getNumber() >2) || (player2Card.getNumber() == 2 && player1Card.getNumber() == 1) || (player2Card.getNumber() > 2 && player1Card.getNumber()<player2Card.getNumber() && player1Card.getNumber()!=1)) // The case that player2 won in one turn
+        // The case that player2 won in one turn
+        else if ((player2Card.getNumber() == 1 && player1Card.getNumber() >2) || (player2Card.getNumber() == 2 && player1Card.getNumber() == 1) || (player2Card.getNumber() > 2 && player1Card.getNumber()<player2Card.getNumber() && player1Card.getNumber()!=1))
         {
             player2.addWonCards(getCountCardsAddition()); // adding the number of cards player2 won to his won_cards variable
             setCountCardsAddition(0);
-            string turn_stats = player1.getName() + " played " + NUMBERS[player1Card.getNumber()-1] + " of " + player1Card.getType() + " " + 
-                                player2.getName() + " played " + NUMBERS[player2Card.getNumber()-1] + " of " + player2Card.getType() + " " + 
+            string turn_stats = player1.getName() + " played " + NUMBERS[player1Card.getNumber()-1] + " of " + player1Card.getType() + " " +
+                                player2.getName() + " played " + NUMBERS[player2Card.getNumber()-1] + " of " + player2Card.getType() + " " +
                                 player2.getName() + " wins";
             this->TurnStats.push_back(turn_stats);
             return;
         }
-
+        // the case that there is a draw and there is at least 2 cards for each player.
         else if(player2Card.getNumber() == player1Card.getNumber() && (player1.stacksize()>1 && player2.stacksize()>1))
         {
             this->DrawCount++; // adding 1 to this variable because it's a draw
             setCountCardsAddition(getCountCardsAddition()+2); // adding 2 because each player put one card upside-down
-            string turn_stats = player1.getName() + " played " + to_string(player1Card.getNumber()) + " of " + player1Card.getType() + " " + 
-                                player2.getName() + " played " + to_string(player2Card.getNumber()) + " of " + player2Card.getType() + " " + 
+            string turn_stats = player1.getName() + " played " + to_string(player1Card.getNumber()) + " of " + player1Card.getType() + " " +
+                                player2.getName() + " played " + to_string(player2Card.getNumber()) + " of " + player2Card.getType() + " " +
                                 "draw";
             this->TurnStats.push_back(turn_stats);
             Card upside_down1 = player1.getDeckOfCards().back();
@@ -85,8 +87,9 @@ void Game::playTurn(){
             this->playTurn(); // call recursively to the current function until there is a won in some turn or there is only draw so the game will stop after all draws(next statement)
         }
 
-        else // should check if this statement occur only if there is only draw
+        else // the case that there is a draw and the number of cards in the deck is 0 or 1 for each player.
         {
+            // if there is one card left so, we need to consider this and add it to the points.
             if(player1.stacksize() == 1)
             {
                 player1.setCardsLeft(player1.stacksize()-1);
@@ -99,26 +102,28 @@ void Game::playTurn(){
                 player1.addWonCards((getCountCardsAddition())/2);
                 player2.addWonCards((getCountCardsAddition())/2);
             }
-            
+
             player1.setIsPlaying(false); // the game finished so the players stopped playing
             player2.setIsPlaying(false);
             return;
         }
-        }
+    }
     else
     {
         player1.setIsPlaying(false); // the game finished so the players stopped playing
         player2.setIsPlaying(false);
-        throw runtime_error("You are trying to play with 0 cards or maybe one of the playes already playing");
+        throw runtime_error("You are trying to play with 0 cards or maybe one of the players already playing");
     }    
 }
 
+// printing the stats for the last turn
 void Game::printLastTurn(){
     cout << TurnStats.back() << endl;
 }
 
+// playing until the game finish
 void Game::playAll(){
-    while (player1.stacksize()>0  && (player1.IsPlaying() == true && player2.IsPlaying() == true))
+    while (player1.stacksize()>0  && (player1.IsPlaying() && player2.IsPlaying()))
     {
         playTurn();
     }
@@ -126,6 +131,7 @@ void Game::playAll(){
     player2.setIsPlaying(false);
 }
 
+// printing the winer or draw in case of same points
 void Game::printWiner(){
     if (player1.cardesTaken() > player2.cardesTaken())
     {
@@ -140,13 +146,17 @@ void Game::printWiner(){
         cout << "There is no winner, draw" << endl;
     }
 }
+
+// printing all stats from the vector of stats I created, each call in the vector represent one turn info.
 void Game::printLog(){
-    // printing all stats from the vector of stats I created, each call in the vector represent one turn info.
     for (string str : TurnStats)
     {
         cout << str << endl;
     }
 }
+
+// printing stats like rate of player - his won cards divided by the full number of cards and,
+// the number of draws in the game and number of winning cards.
 void Game::printStats(){
     int WinRatePlayer1 = round(((float(player1.cardesTaken())/SIZE_OF_CARDS) * 100)); // Win rate for player1 by percentage
     int WinRatePlayer2 = round(((float(player2.cardesTaken())/SIZE_OF_CARDS) * 100)); // Win rate for player2 by percentage
@@ -155,6 +165,7 @@ void Game::printStats(){
     cout << "Number of draws in this game was: " << this->DrawCount << endl;
 }
 
+// function that divide the cards between the players randomly
 void Game::divide_cards_for_each_player(int num_of_cards){
     vector<string> types = {"Hearts", "Spades", "Diamonds", "Clubs"};
     srand(time(0));
@@ -183,10 +194,12 @@ void Game::divide_cards_for_each_player(int num_of_cards){
     }
 }
 
+// setting the number of points to be added for each player
 void Game::setCountCardsAddition(int num){
     this->countCardsAddition = num;
 }
 
+// getting the number of points added cumulatively
 int Game::getCountCardsAddition(){
     return this->countCardsAddition;
 }

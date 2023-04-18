@@ -8,13 +8,10 @@
 #include <string>
 using namespace std;
 namespace ariel{}
-using namespace std;
-namespace ariel{}
 
     class Game{
     private:
-        Player & player1;
-        Player & player2;
+        Player & player1, player2;
         vector<string> TurnStats;
         int DrawCount;
         int countCardsAddition = 0;

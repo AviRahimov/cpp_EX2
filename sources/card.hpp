@@ -7,8 +7,6 @@
 #include <string>
 using namespace std;
 namespace ariel{}
-using namespace std;
-namespace ariel{}
 
     class Card{
     private:

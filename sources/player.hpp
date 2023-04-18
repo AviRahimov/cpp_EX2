@@ -10,7 +10,6 @@
 #include "card.hpp"
 using namespace std;
 namespace ariel{}
-namespace ariel{}
 
     class Player{
     private:
